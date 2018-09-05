@@ -63,6 +63,173 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android权限" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/09/05/Android权限/" class="article-date">
+  <time datetime="2018-09-05T15:05:04.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/09/05/Android权限/">Android权限</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 需要进行检测的权限数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> String[] needPermissions = &#123;</span><br><span class="line">        Manifest.permission.ACCESS_COARSE_LOCATION,</span><br><span class="line">        Manifest.permission.ACCESS_FINE_LOCATION,</span><br><span class="line">        Manifest.permission.WRITE_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_PHONE_STATE</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSON_REQUESTCODE = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 判断是否需要检测，防止不停的弹框</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isNeedCheck = <span class="keyword">true</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkPermissions</span><span class="params">(String... permissions)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        List&lt;String&gt; needRequestPermissonList = findDeniedPermissions(permissions);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != needRequestPermissonList</span><br><span class="line">                &amp;&amp; needRequestPermissonList.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            String[] array = needRequestPermissonList.toArray(<span class="keyword">new</span> String[needRequestPermissonList.size()]);</span><br><span class="line">            Method method = getClass().getMethod(<span class="string">"requestPermissions"</span>, <span class="keyword">new</span> Class[]&#123;String[].class,</span><br><span class="line">                    <span class="keyword">int</span>.class&#125;);</span><br><span class="line"></span><br><span class="line">            method.invoke(<span class="keyword">this</span>, array, PERMISSON_REQUESTCODE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>&amp;&amp; getApplicationInfo().targetSdkVersion &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isNeedCheck) &#123;</span><br><span class="line">            checkPermissions(needPermissions);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/05/Android权限/" data-id="cjlpa6kz50000g2a1z0sjlm9i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-3D数学基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/09/04/3D数学基础/" class="article-date">
+  <time datetime="2018-09-04T01:26:44.000Z" itemprop="datePublished">2018-09-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/09/04/3D数学基础/">3D数学基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h1><h2 id="笛卡尔坐标系-Cartesian-coordinates"><a href="#笛卡尔坐标系-Cartesian-coordinates" class="headerlink" title="笛卡尔坐标系(Cartesian coordinates)"></a>笛卡尔坐标系(Cartesian coordinates)</h2><p>笛卡尔坐标系（Cartesian coordinates，法语：les coordonnées cartésiennes）就是直角坐标系和斜坐标系的统称。</p>
+<p>相交于原点的两条数轴，构成了平面放射坐标系。如两条数轴上的度量单位相等，则称此放射坐标系为笛卡尔坐标系。两条数轴互相垂直的笛卡尔坐标系，称为<em>笛卡尔直角坐标系</em>，否则称为<em>笛卡尔斜角坐标系</em>。</p>
+<p>放射坐标系和笛卡尔坐标系平面向空间的推广：相交于原点的三条不共面的数轴构成空间的放射坐标系。三条数轴上度量单位相等的放射坐标系被称为空间笛卡尔坐标系。三条数轴互相垂直的笛卡尔坐标系被称为<em>空间笛卡尔直角坐标系</em>，否则被称为<em>空间笛卡尔斜角坐标系</em>。</p>
+<h2 id="齐次坐标-Homogeneous-Coordinate"><a href="#齐次坐标-Homogeneous-Coordinate" class="headerlink" title="齐次坐标(Homogeneous Coordinate)"></a>齐次坐标(Homogeneous Coordinate)</h2><p>在空间直角坐标系中，任意一点可用一个三维坐标矩阵[x y z]表示。如果将该点用一个四维坐标的矩阵[Hx Hy Hz H]表示时，则称为齐次坐标表示方法。在齐次坐标中，最后一维坐标H称为比例因子。<br>　　在OpenGL中，二维坐标点全看作三维坐标点，所有的点都用齐次坐标来描述，统一作为三维齐次点来处理。每个齐次点用一个向量(x, y, z, w)表示，其中四个元素全不为零。齐次点具有下列几个性质：</p>
+<ul>
+<li>如果实数a非零，则(x, y, x, w)和(ax, ay, az, aw)表示同一个点，类似于x/y = (ax)/( ay)。</li>
+<li>三维空间点(x, y, z)的齐次点坐标为(x, y, z, 1.0)，二维平面点(x,y)的齐次坐标为(x, y, 0.0, 1.0)。</li>
+<li>当w不为零时，齐次点坐标(x, y, z, w)即三维空间点坐标(x/w, y/w, z/w)；当w为零时，齐次点(x, y, z, 0.0)表示此点位于某方向的无穷远处。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/04/3D数学基础/" data-id="cjlpa6kzj0003g2a186ugxbxb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/图形学/">图形学</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GLSL基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/09/04/GLSL基础/" class="article-date">
+  <time datetime="2018-09-04T01:20:21.000Z" itemprop="datePublished">2018-09-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/09/04/GLSL基础/">GLSL基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>OpenGL着色语言（OpenGL Shading Language）是用来在OpenGL中着色编程的语言</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/04/GLSL基础/" data-id="cjlpa6kzx0009g2a1ca95fpck" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Three-js基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/09/04/Three-js基础/" class="article-date">
+  <time datetime="2018-09-04T01:08:45.000Z" itemprop="datePublished">2018-09-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/09/04/Three-js基础/">Three.js基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="三大组建"><a href="#三大组建" class="headerlink" title="三大组建"></a>三大组建</h2><p>在Three.js中，要渲染物体到网页中，我们需要3个组建：<code>场景（scene）</code> <code>相机（camera）</code> <code>渲染器（renderer）</code>。</p>
+<ul>
+<li><code>场景（scene）</code>: 场景是所有物体的容器，如果要显示一个苹果，就需要将苹果对象加入场景中</li>
+<li><code>相机（camera）</code>: 相机决定了场景中那个角度的景色会显示出来。相机就像人的眼睛一样，人站在不同位置，抬头或者低头都能够看到不同的景色。</li>
+<li><code>渲染器（renderer）</code>: 渲染器决定了渲染的结果应该画在页面的什么元素上面，并且以怎样的方式来绘制。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scene = <span class="keyword">new</span> THREE.Scene();  <span class="comment">// 场景</span></span><br><span class="line"><span class="keyword">var</span> camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">75</span>, <span class="built_in">window</span>.innerWidth/<span class="built_in">window</span>.innerHeight, <span class="number">0.1</span>, <span class="number">1000</span>);<span class="comment">// 透视相机</span></span><br><span class="line"><span class="keyword">var</span> renderer = <span class="keyword">new</span> THREE.WebGLRenderer();   <span class="comment">// 渲染器</span></span><br><span class="line">renderer.setSize(<span class="built_in">window</span>.innerWidth, <span class="built_in">window</span>.innerHeight);    <span class="comment">// 设置渲染器的大小为窗口的内宽度，也就是内容区的宽度</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(renderer.domElement);</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/04/Three-js基础/" data-id="cjlpa6l02000bg2a12z4f7t2k" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Js/">Js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WebGL/">WebGL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Code快捷键" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/09/03/Code快捷键/" class="article-date">
@@ -212,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/Code快捷键/" data-id="cjlmgap580001eaa1gz0jk6yi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/Code快捷键/" data-id="cjlpa6kzd0001g2a1tuvqpchi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/IDE/">IDE</a></li></ul>
@@ -265,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/Mac快捷键/" data-id="cjlmgap5e0003eaa19s60371c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/Mac快捷键/" data-id="cjlpa6l00000ag2a1ict95k54" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Mac/">Mac</a></li></ul>
@@ -291,7 +458,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/09/03/vue基础/">vue基础</a>
+      <a class="article-title" href="/blog/2018/09/03/vue基础/">Vue基础</a>
     </h1>
   
 
@@ -299,15 +466,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'selector'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        key: <span class="string">"value"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        foo()&#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例属性</span></span><br><span class="line">vm.$data === data <span class="comment">// =&gt; true</span></span><br><span class="line">vm.$el === <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>) <span class="comment">// =&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例方法</span></span><br><span class="line">vm.$watch(<span class="string">'a'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newValue, oldValue</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这个回调将在 `vm.a` 改变后调用</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+        <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'selector'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        key: <span class="string">"value"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        foo()&#123; &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    computed: &#123;</span><br><span class="line">        key()&#123; <span class="keyword">return</span> <span class="string">'value'</span> &#125;,</span><br><span class="line">        key: &#123;</span><br><span class="line">            get() &#123; <span class="keyword">return</span> <span class="string">'value'</span> &#125;,</span><br><span class="line">            set(value) &#123; <span class="keyword">this</span>.otherKey = value &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    watch: &#123;</span><br><span class="line">        key(newVal, oldVal) &#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例属性</span></span><br><span class="line">vm.$data === data <span class="comment">// =&gt; true</span></span><br><span class="line">vm.$el === <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>) <span class="comment">// =&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例方法</span></span><br><span class="line">vm.$watch(<span class="string">'a'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newValue, oldValue</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这个回调将在 `vm.a` 改变后调用</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">vm.$set(vm.items, indexOfItem, newValue)</span><br><span class="line">vm.$set(vm.userProfile, <span class="string">'age'</span>, <span class="number">27</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>绑定html: <span class="tag">&lt;<span class="name">span</span> <span class="attr">v-html</span>=<span class="string">"rawHtml"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>绑定属性: <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-bind:disabled</span>=<span class="string">"isButtonDisabled"</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"url"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    缩写: <span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">"url"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"styleObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>事件: <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click</span>=<span class="string">"doSomething"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    缩写: <span class="tag">&lt;<span class="name">a</span> @<span class="attr">click</span>=<span class="string">"doSomething"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>循环: <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in items"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in items"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"value in object"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(value, key, index) in object"</span>&gt;</span></span><br><span class="line">    跟踪列表项目状态<span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"item in items"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">v-for</span>=<span class="string">"n in 10"</span>&gt;</span>&#123;&#123; n &#125;&#125; <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 阻止单击事件继续传播 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click.stop</span>=<span class="string">"doThis"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 提交事件不再重载页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">v-on:submit.prevent</span>=<span class="string">"onSubmit"</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 修饰符可以串联 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click.stop.prevent</span>=<span class="string">"doThat"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 只有修饰符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">v-on:submit.prevent</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 添加事件监听器时使用事件捕获模式 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 即元素自身触发的事件先在此处理，然后才交由内部元素进行处理 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-on:click.capture</span>=<span class="string">"doThis"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 只当在 event.target 是当前元素自身时触发处理函数 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 即事件不是从内部元素触发的 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-on:click.self</span>=<span class="string">"doThat"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 点击事件将只会触发一次 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click.once</span>=<span class="string">"doThis"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 而不会等待 `onScroll` 完成  --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这其中包含 `event.preventDefault()` 的情况 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-on:scroll.passive</span>=<span class="string">"onScroll"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 只有在 `keyCode` 是 13 时调用 `vm.submit()` --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-on:keyup.13</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--  .enter .tab .delete (捕获“删除”和“退格”键) .esc .space .up .down .left .right --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-on:keyup.enter</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 可以通过全局 config.keyCodes 对象自定义按键修饰符别名： --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- // 可以使用 `v-on:keyup.f1`</span></span><br><span class="line"><span class="comment">Vue.config.keyCodes.f1 = 112 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 系统修饰键 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .ctrl .alt .shift .meta --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Alt + C --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> @<span class="attr">keyup.alt.67</span>=<span class="string">"clear"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Ctrl + Click --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> @<span class="attr">click.ctrl</span>=<span class="string">"doSomething"</span>&gt;</span>Do something<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 即使 Alt 或 Shift 被一同按下时也会触发 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click.ctrl</span>=<span class="string">"onClick"</span>&gt;</span>A<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 有且只有 Ctrl 被按下的时候才触发 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click.ctrl.exact</span>=<span class="string">"onCtrlClick"</span>&gt;</span>A<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 没有任何系统修饰符被按下的时候才触发 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click.exact</span>=<span class="string">"onClick"</span>&gt;</span>A<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 鼠标按钮修饰符 --&gt;</span> </span><br><span class="line"><span class="comment">&lt;!-- .left .right .middle --&gt;</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/vue基础/" data-id="cjlmgap520000eaa1d1lnn0zp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/vue基础/" data-id="cjlpa6l07000eg2a1t4f8w00y" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vue/">vue</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Js/">Js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Vue/">Vue</a></li></ul>
 
     </footer>
   </div>
@@ -351,7 +520,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/hello-world/" data-id="cjlmgap5h0004eaa1ahwatk6w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/hello-world/" data-id="cjlpa6l05000dg2a17jsdq79z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -374,7 +543,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IDE/">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IDE/">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Js/">Js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/WebGL/">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/图形学/">图形学</a></li></ul>
     </div>
   </div>
 
@@ -384,7 +553,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/blog/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/js/" style="font-size: 10px;">js</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a>
+      <a href="/blog/tags/3D/" style="font-size: 10px;">3D</a> <a href="/blog/tags/Android/" style="font-size: 10px;">Android</a> <a href="/blog/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/blog/tags/Js/" style="font-size: 20px;">Js</a> <a href="/blog/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/blog/tags/图形学/" style="font-size: 10px;">图形学</a>
     </div>
   </div>
 
@@ -406,19 +575,23 @@
       <ul>
         
           <li>
+            <a href="/blog/2018/09/05/Android权限/">Android权限</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/04/3D数学基础/">3D数学基础</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/04/GLSL基础/">GLSL基础</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/04/Three-js基础/">Three.js基础</a>
+          </li>
+        
+          <li>
             <a href="/blog/2018/09/03/Code快捷键/">Visual Studio Code快捷键</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018/09/03/Mac快捷键/">Mac快捷键</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018/09/03/vue基础/">vue基础</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018/09/03/hello-world/">Hello World</a>
           </li>
         
       </ul>
