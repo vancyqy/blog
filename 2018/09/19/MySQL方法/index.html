@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MySQL方法 | Vancy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CONCAT_WS(separator,str1,str2,…)：将多个字符串参数以给定的分隔符separator首尾相连后返回1234INSERT INTO table2(column_name(s))SELECT column_name(s)FROM table1; 123SUBSTRING(str,pos)SUBSTRING(str FROM pos)SUBSTRING(str,pos,le">
+<meta name="keywords" content="博客 技术 js css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL方法">
+<meta property="og:url" content="http://yoursite.com/2018/09/19/MySQL方法/index.html">
+<meta property="og:site_name" content="Vancy">
+<meta property="og:description" content="CONCAT_WS(separator,str1,str2,…)：将多个字符串参数以给定的分隔符separator首尾相连后返回1234INSERT INTO table2(column_name(s))SELECT column_name(s)FROM table1; 123SUBSTRING(str,pos)SUBSTRING(str FROM pos)SUBSTRING(str,pos,le">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-29T04:25:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL方法">
+<meta name="twitter:description" content="CONCAT_WS(separator,str1,str2,…)：将多个字符串参数以给定的分隔符separator首尾相连后返回1234INSERT INTO table2(column_name(s))SELECT column_name(s)FROM table1; 123SUBSTRING(str,pos)SUBSTRING(str FROM pos)SUBSTRING(str,pos,le">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Vancy" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Vancy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MySQL方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/09/19/MySQL方法/" class="article-date">
+  <time datetime="2018-09-19T14:37:56.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CONCAT_WS(separator,str1,str2,…)：将多个字符串参数以给定的分隔符separator首尾相连后返回<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table2</span><br><span class="line">(column_name(s))</span><br><span class="line"><span class="keyword">SELECT</span> column_name(s)</span><br><span class="line"><span class="keyword">FROM</span> table1;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SUBSTRING(str,pos)</span><br><span class="line">SUBSTRING(str FROM pos)</span><br><span class="line">SUBSTRING(str,pos,len)、SUBSTRING(str FROM pos FOR len)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT SUBSTRING('Quadratically',5);</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| SSUBSTRING('Quadratically',5)                           |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| ratically                                               |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CHAR_LENGTH(str)</span><br><span class="line">CHARACTER_LENGTH(str)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT CHAR_LENGTH("text");</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| CHAR_LENGTH("text")                                     |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| 4                                                       |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br></pre></td></tr></table></figure>
+<p>BETWEEN 子句可以代替“大于等于XX，并且小于等于XX”这样的条件。</p>
+<h2 id="node-mysql"><a href="#node-mysql" class="headerlink" title="node mysql"></a>node mysql</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pool.config.connectionLimit     <span class="comment">// passed in max size of the pool</span></span><br><span class="line">pool._freeConnections.length    <span class="comment">// number of free connections awaiting use</span></span><br><span class="line">pool._allConnections.length     <span class="comment">// number of connections currently created, including ones in use</span></span><br><span class="line">pool._acquiringConnections.length <span class="comment">// number of connections in the process of being acquired</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/19/MySQL方法/" data-id="cjmofk2bt0005e3zwuc6xaupo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018/09/26/centos/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          centos
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018/09/05/Android权限/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android权限</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IDE/">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Js/">Js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/WebGL/">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/图形学/">图形学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/3D/" style="font-size: 10px;">3D</a> <a href="/blog/tags/Android/" style="font-size: 10px;">Android</a> <a href="/blog/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/blog/tags/Js/" style="font-size: 20px;">Js</a> <a href="/blog/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/WebGL/" style="font-size: 10px;">WebGL</a> <a href="/blog/tags/图形学/" style="font-size: 10px;">图形学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018/09/26/centos/">centos</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/19/MySQL方法/">MySQL方法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/05/Android权限/">Android权限</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/04/3D数学基础/">3D数学基础</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/04/GLSL基础/">GLSL基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 秦洋<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

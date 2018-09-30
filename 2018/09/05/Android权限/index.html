@@ -7,18 +7,18 @@
   
   <title>Android权限 | Vancy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738/*** 需要进行检测的权限数组*/protected String[] needPermissions = &amp;#123;        Manifest.permission.ACCESS_COARSE_LOCATION,        Manifest.perm">
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657/*** 需要进行检测的权限数组*/protected String[] needPermissions = &amp;#123;        Manifest.permission.ACCESS">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android权限">
 <meta property="og:url" content="http://yoursite.com/2018/09/05/Android权限/index.html">
 <meta property="og:site_name" content="Vancy">
-<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738/*** 需要进行检测的权限数组*/protected String[] needPermissions = &amp;#123;        Manifest.permission.ACCESS_COARSE_LOCATION,        Manifest.perm">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657/*** 需要进行检测的权限数组*/protected String[] needPermissions = &amp;#123;        Manifest.permission.ACCESS">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-05T15:11:26.000Z">
+<meta property="og:updated_time" content="2018-09-06T02:39:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android权限">
-<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829303132333435363738/*** 需要进行检测的权限数组*/protected String[] needPermissions = &amp;#123;        Manifest.permission.ACCESS_COARSE_LOCATION,        Manifest.perm">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657/*** 需要进行检测的权限数组*/protected String[] needPermissions = &amp;#123;        Manifest.permission.ACCESS">
   
     <link rel="alternate" href="/blog/atom.xml" title="Vancy" type="application/atom+xml">
   
@@ -87,12 +87,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 需要进行检测的权限数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> String[] needPermissions = &#123;</span><br><span class="line">        Manifest.permission.ACCESS_COARSE_LOCATION,</span><br><span class="line">        Manifest.permission.ACCESS_FINE_LOCATION,</span><br><span class="line">        Manifest.permission.WRITE_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_PHONE_STATE</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSON_REQUESTCODE = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 判断是否需要检测，防止不停的弹框</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isNeedCheck = <span class="keyword">true</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkPermissions</span><span class="params">(String... permissions)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        List&lt;String&gt; needRequestPermissonList = findDeniedPermissions(permissions);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != needRequestPermissonList</span><br><span class="line">                &amp;&amp; needRequestPermissonList.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            String[] array = needRequestPermissonList.toArray(<span class="keyword">new</span> String[needRequestPermissonList.size()]);</span><br><span class="line">            Method method = getClass().getMethod(<span class="string">"requestPermissions"</span>, <span class="keyword">new</span> Class[]&#123;String[].class,</span><br><span class="line">                    <span class="keyword">int</span>.class&#125;);</span><br><span class="line"></span><br><span class="line">            method.invoke(<span class="keyword">this</span>, array, PERMISSON_REQUESTCODE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>&amp;&amp; getApplicationInfo().targetSdkVersion &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isNeedCheck) &#123;</span><br><span class="line">            checkPermissions(needPermissions);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 需要进行检测的权限数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> String[] needPermissions = &#123;</span><br><span class="line">        Manifest.permission.ACCESS_COARSE_LOCATION,</span><br><span class="line">        Manifest.permission.ACCESS_FINE_LOCATION,</span><br><span class="line">        Manifest.permission.WRITE_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_PHONE_STATE</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSON_REQUESTCODE = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 判断是否需要检测，防止不停的弹框</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isNeedCheck = <span class="keyword">true</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkPermissions</span><span class="params">(String... permissions)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        List&lt;String&gt; needRequestPermissonList = findDeniedPermissions(permissions);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != needRequestPermissonList</span><br><span class="line">                &amp;&amp; needRequestPermissonList.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            String[] array = needRequestPermissonList.toArray(<span class="keyword">new</span> String[needRequestPermissonList.size()]);</span><br><span class="line">            Method method = getClass().getMethod(<span class="string">"requestPermissions"</span>, <span class="keyword">new</span> Class[]&#123;String[].class,</span><br><span class="line">                    <span class="keyword">int</span>.class&#125;);</span><br><span class="line"></span><br><span class="line">            method.invoke(<span class="keyword">this</span>, array, PERMISSON_REQUESTCODE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">findDeniedPermissions</span><span class="params">(String[] permissions)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; needRequestPermissonList = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span></span><br><span class="line">            &amp;&amp; getApplicationInfo().targetSdkVersion &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (String perm : permissions) &#123;</span><br><span class="line">                Method checkSelfMethod = getClass().getMethod(<span class="string">"checkSelfPermission"</span>, String.class);</span><br><span class="line">                Method shouldShowRequestPermissionRationaleMethod = getClass().getMethod(<span class="string">"shouldShowRequestPermissionRationale"</span>,</span><br><span class="line">                        String.class);</span><br><span class="line">                <span class="keyword">if</span> ((Integer) checkSelfMethod.invoke(<span class="keyword">this</span>, perm) != PackageManager.PERMISSION_GRANTED</span><br><span class="line">                        || (Boolean) shouldShowRequestPermissionRationaleMethod.invoke(<span class="keyword">this</span>, perm)) &#123;</span><br><span class="line">                    needRequestPermissonList.add(perm);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> needRequestPermissonList;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>&amp;&amp; getApplicationInfo().targetSdkVersion &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isNeedCheck) &#123;</span><br><span class="line">            checkPermissions(needPermissions);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/05/Android权限/" data-id="cjlpa6kz50000g2a1z0sjlm9i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/05/Android权限/" data-id="cjmofk2bb0000e3zwv39mvcyu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Android/">Android</a></li></ul>
@@ -102,6 +102,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/blog/2018/09/19/MySQL方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL方法
+        
+      </div>
+    </a>
   
   
     <a href="/blog/2018/09/04/3D数学基础/" id="article-nav-older" class="article-nav-link-wrap">
@@ -157,6 +166,14 @@
       <ul>
         
           <li>
+            <a href="/blog/2018/09/26/centos/">centos</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/19/MySQL方法/">MySQL方法</a>
+          </li>
+        
+          <li>
             <a href="/blog/2018/09/05/Android权限/">Android权限</a>
           </li>
         
@@ -166,14 +183,6 @@
         
           <li>
             <a href="/blog/2018/09/04/GLSL基础/">GLSL基础</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018/09/04/Three-js基础/">Three.js基础</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018/09/03/Code快捷键/">Visual Studio Code快捷键</a>
           </li>
         
       </ul>

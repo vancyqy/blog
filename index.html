@@ -63,6 +63,105 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-centos" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/09/26/centos/" class="article-date">
+  <time datetime="2018-09-26T14:24:52.000Z" itemprop="datePublished">2018-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/09/26/centos/">centos</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">ssh root@192.168.88.69</span><br><span class="line">cd /</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure>
+<p>Q: centos7.0 没有netstat 和 ifconfig命令问题<br>A: <figure class="highlight plain"><figcaption><span>install net-tools ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">端口占用</span><br><span class="line">```netstat -nap</span><br></pre></td></tr></table></figure></p>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>firewalld的基本使用</p>
+<p>启动： systemctl start firewalld</p>
+<p>查看状态： systemctl status firewalld </p>
+<p>停止： systemctl disable firewalld</p>
+<p>禁用： systemctl stop firewalld</p>
+<p>那怎么开启一个端口呢<br>添加<br>firewall-cmd –zone=public –add-port=80/tcp –permanent   （–permanent永久生效，没有此参数重启后失效）<br>重新载入<br>firewall-cmd –reload<br>查看<br>firewall-cmd –zone=public –query-port=80/tcp<br>删除<br>firewall-cmd –zone=public –remove-port=80/tcp –permanent<br>查看firewall是否运行,下面两个命令都可以<br>systemctl status firewalld.service<br>firewall-cmd –state</p>
+<p>查看当前开了哪些端口<br>其实一个服务对应一个端口，每个服务对应/usr/lib/firewalld/services下面一个xml文件。<br>firewall-cmd –list-services</p>
+<p>查看还有哪些服务可以打开<br>firewall-cmd –get-services</p>
+<p>查看所有打开的端口：<br>firewall-cmd –zone=public –list-ports</p>
+<p>更新防火墙规则：<br>firewall-cmd –reload</p>
+<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>i前面插入,a后面追加</p>
+<h2 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install subversion</span><br><span class="line">svnadmin create /svn/test/</span><br><span class="line">ll /svn/test/</span><br></pre></td></tr></table></figure>
+<p>hooks目录：放置hook脚步文件的目录</p>
+<p>locks目录：用来放置subversion的db锁文件和db_logs锁文件的目录，用来追踪存取文件库的客户端</p>
+<p>format目录：是一个文本文件，里边只放了一个整数，表示当前文件库配置的版本号</p>
+<p>conf目录：是这个仓库配置文件（仓库用户访问账户，权限）</p>
+<p>修改svnserve.conf文件 vi svnserve.conf<br>打开下面的几个注释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">anon-access = read #匿名用户可读</span><br><span class="line">auth-access = write #授权用户可写</span><br><span class="line">password-db = passwd #使用哪个文件作为账号文件</span><br><span class="line">authz-db = authz #使用哪个文件作为权限文件</span><br><span class="line">realm = /var/svn/svntest # 认证空间名，版本库所在目录</span><br></pre></td></tr></table></figure></p>
+<p>配置访问用户及密码 vi conf/passwd<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lqb = lqb123456</span><br><span class="line">test1 = 123456</span><br><span class="line">test2 = 654321</span><br></pre></td></tr></table></figure></p>
+<p>配置新用户的授权文件 vi conf/authz<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin = lqb,test2</span><br><span class="line">user = test1</span><br><span class="line">[/svn/test/]</span><br><span class="line">@admin = rw </span><br><span class="line">@user = r</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#启动服务 svnserve -d -r /svn/</span><br><span class="line">#停止服务 ps aux | grep svn</span><br><span class="line">kill -s 9 [process id]</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/26/centos/" data-id="cjmofk2da000me3zwhchm30l8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-MySQL方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/09/19/MySQL方法/" class="article-date">
+  <time datetime="2018-09-19T14:37:56.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/09/19/MySQL方法/">MySQL方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CONCAT_WS(separator,str1,str2,…)：将多个字符串参数以给定的分隔符separator首尾相连后返回<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table2</span><br><span class="line">(column_name(s))</span><br><span class="line"><span class="keyword">SELECT</span> column_name(s)</span><br><span class="line"><span class="keyword">FROM</span> table1;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SUBSTRING(str,pos)</span><br><span class="line">SUBSTRING(str FROM pos)</span><br><span class="line">SUBSTRING(str,pos,len)、SUBSTRING(str FROM pos FOR len)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT SUBSTRING('Quadratically',5);</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| SSUBSTRING('Quadratically',5)                           |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| ratically                                               |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CHAR_LENGTH(str)</span><br><span class="line">CHARACTER_LENGTH(str)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT CHAR_LENGTH("text");</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| CHAR_LENGTH("text")                                     |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br><span class="line">| 4                                                       |</span><br><span class="line">+<span class="comment">---------------------------------------------------------+</span></span><br></pre></td></tr></table></figure>
+<p>BETWEEN 子句可以代替“大于等于XX，并且小于等于XX”这样的条件。</p>
+<h2 id="node-mysql"><a href="#node-mysql" class="headerlink" title="node mysql"></a>node mysql</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pool.config.connectionLimit     <span class="comment">// passed in max size of the pool</span></span><br><span class="line">pool._freeConnections.length    <span class="comment">// number of free connections awaiting use</span></span><br><span class="line">pool._allConnections.length     <span class="comment">// number of connections currently created, including ones in use</span></span><br><span class="line">pool._acquiringConnections.length <span class="comment">// number of connections in the process of being acquired</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/19/MySQL方法/" data-id="cjmofk2bt0005e3zwuc6xaupo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Android权限" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/09/05/Android权限/" class="article-date">
@@ -85,12 +184,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 需要进行检测的权限数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> String[] needPermissions = &#123;</span><br><span class="line">        Manifest.permission.ACCESS_COARSE_LOCATION,</span><br><span class="line">        Manifest.permission.ACCESS_FINE_LOCATION,</span><br><span class="line">        Manifest.permission.WRITE_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_PHONE_STATE</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSON_REQUESTCODE = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 判断是否需要检测，防止不停的弹框</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isNeedCheck = <span class="keyword">true</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkPermissions</span><span class="params">(String... permissions)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        List&lt;String&gt; needRequestPermissonList = findDeniedPermissions(permissions);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != needRequestPermissonList</span><br><span class="line">                &amp;&amp; needRequestPermissonList.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            String[] array = needRequestPermissonList.toArray(<span class="keyword">new</span> String[needRequestPermissonList.size()]);</span><br><span class="line">            Method method = getClass().getMethod(<span class="string">"requestPermissions"</span>, <span class="keyword">new</span> Class[]&#123;String[].class,</span><br><span class="line">                    <span class="keyword">int</span>.class&#125;);</span><br><span class="line"></span><br><span class="line">            method.invoke(<span class="keyword">this</span>, array, PERMISSON_REQUESTCODE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>&amp;&amp; getApplicationInfo().targetSdkVersion &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isNeedCheck) &#123;</span><br><span class="line">            checkPermissions(needPermissions);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 需要进行检测的权限数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> String[] needPermissions = &#123;</span><br><span class="line">        Manifest.permission.ACCESS_COARSE_LOCATION,</span><br><span class="line">        Manifest.permission.ACCESS_FINE_LOCATION,</span><br><span class="line">        Manifest.permission.WRITE_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_EXTERNAL_STORAGE,</span><br><span class="line">        Manifest.permission.READ_PHONE_STATE</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSON_REQUESTCODE = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 判断是否需要检测，防止不停的弹框</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isNeedCheck = <span class="keyword">true</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkPermissions</span><span class="params">(String... permissions)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        List&lt;String&gt; needRequestPermissonList = findDeniedPermissions(permissions);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != needRequestPermissonList</span><br><span class="line">                &amp;&amp; needRequestPermissonList.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            String[] array = needRequestPermissonList.toArray(<span class="keyword">new</span> String[needRequestPermissonList.size()]);</span><br><span class="line">            Method method = getClass().getMethod(<span class="string">"requestPermissions"</span>, <span class="keyword">new</span> Class[]&#123;String[].class,</span><br><span class="line">                    <span class="keyword">int</span>.class&#125;);</span><br><span class="line"></span><br><span class="line">            method.invoke(<span class="keyword">this</span>, array, PERMISSON_REQUESTCODE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">findDeniedPermissions</span><span class="params">(String[] permissions)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; needRequestPermissonList = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span></span><br><span class="line">            &amp;&amp; getApplicationInfo().targetSdkVersion &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (String perm : permissions) &#123;</span><br><span class="line">                Method checkSelfMethod = getClass().getMethod(<span class="string">"checkSelfPermission"</span>, String.class);</span><br><span class="line">                Method shouldShowRequestPermissionRationaleMethod = getClass().getMethod(<span class="string">"shouldShowRequestPermissionRationale"</span>,</span><br><span class="line">                        String.class);</span><br><span class="line">                <span class="keyword">if</span> ((Integer) checkSelfMethod.invoke(<span class="keyword">this</span>, perm) != PackageManager.PERMISSION_GRANTED</span><br><span class="line">                        || (Boolean) shouldShowRequestPermissionRationaleMethod.invoke(<span class="keyword">this</span>, perm)) &#123;</span><br><span class="line">                    needRequestPermissonList.add(perm);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> needRequestPermissonList;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>&amp;&amp; getApplicationInfo().targetSdkVersion &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isNeedCheck) &#123;</span><br><span class="line">            checkPermissions(needPermissions);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/05/Android权限/" data-id="cjlpa6kz50000g2a1z0sjlm9i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/05/Android权限/" data-id="cjmofk2bb0000e3zwv39mvcyu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Android/">Android</a></li></ul>
@@ -137,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/04/3D数学基础/" data-id="cjlpa6kzj0003g2a186ugxbxb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/04/3D数学基础/" data-id="cjmofk2bx0009e3zw604rol5e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/图形学/">图形学</a></li></ul>
@@ -176,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/04/GLSL基础/" data-id="cjlpa6kzx0009g2a1ca95fpck" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/04/GLSL基础/" data-id="cjmofk2bj0001e3zwnv3oa0wc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -218,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/04/Three-js基础/" data-id="cjlpa6l02000bg2a12z4f7t2k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/04/Three-js基础/" data-id="cjmofk2br0004e3zwfafht0ak" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Js/">Js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WebGL/">WebGL</a></li></ul>
@@ -379,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/Code快捷键/" data-id="cjlpa6kzd0001g2a1tuvqpchi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/Code快捷键/" data-id="cjmofk2bq0003e3zw1gyz2wi3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/IDE/">IDE</a></li></ul>
@@ -432,7 +531,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/Mac快捷键/" data-id="cjlpa6l00000ag2a1ict95k54" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/Mac快捷键/" data-id="cjmofk2bv0008e3zwrvrf3kec" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Mac/">Mac</a></li></ul>
@@ -473,7 +572,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/vue基础/" data-id="cjlpa6l07000eg2a1t4f8w00y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/vue基础/" data-id="cjmofk2dc000ne3zww2at7on9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Js/">Js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Vue/">Vue</a></li></ul>
@@ -520,7 +619,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/hello-world/" data-id="cjlpa6l05000dg2a17jsdq79z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/hello-world/" data-id="cjmofk2d7000le3zwajb1o4kt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -575,6 +674,14 @@
       <ul>
         
           <li>
+            <a href="/blog/2018/09/26/centos/">centos</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/09/19/MySQL方法/">MySQL方法</a>
+          </li>
+        
+          <li>
             <a href="/blog/2018/09/05/Android权限/">Android权限</a>
           </li>
         
@@ -584,14 +691,6 @@
         
           <li>
             <a href="/blog/2018/09/04/GLSL基础/">GLSL基础</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018/09/04/Three-js基础/">Three.js基础</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018/09/03/Code快捷键/">Visual Studio Code快捷键</a>
           </li>
         
       </ul>
